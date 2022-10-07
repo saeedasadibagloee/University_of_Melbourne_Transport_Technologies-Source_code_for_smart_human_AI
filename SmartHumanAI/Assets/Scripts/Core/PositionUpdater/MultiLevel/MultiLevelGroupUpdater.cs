@@ -1,0 +1,728 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using Core.Handlers;
+using Core.Logger;
+using Core.Signals;
+using Domain.Elements;
+using Domain.Stairway;
+using Core.Threat;
+
+using Core.PositionUpdater.NextSteps;
+using Core.PositionUpdater.EvacuationPathHandler;
+
+using Core.PositionUpdater.HandlerFabric;
+using Core.PositionUpdater.ReactionTimeHandler;
+using Domain;
+using Core.GroupBehaviour;
+using Core.GroupBehaviour.DecisionUpdate;
+
+namespace Core.PositionUpdater.MultiLevel
+{
+    internal class MultiLevelGroupUpdater : IGroupPositionUpdater
+    {
+        private readonly ILevelHandler _levelHandler = null;
+        private readonly IStairwayHandler _stairWayHandler = null;
+
+        private readonly IDestinationLevelIdentifier _destLevelIdentifier = null;
+        private readonly IReactionTimeHandler _reactionTimeHandler = null;
+
+        private readonly IGroupHandler _groupHandler = null;
+
+        private readonly NextStepGroupUpdater _nsUpdater = null;
+        private readonly List<int> _destinationLevels = null;
+
+        public MultiLevelGroupUpdater(ICore pCore, 
+                                      ILevelHandler pLevelHandler,
+                                      IStairwayHandler pStairWayHandler,
+                                      IGroupHandler pGroupHander, 
+                                      IMultiLevelHandlerFabric pMultiLevelFabric)
+        {
+            _levelHandler = pLevelHandler;
+            _stairWayHandler = pStairWayHandler;
+            _stairWayHandler.Stairs();
+
+            var extraLevelHandlerList = pMultiLevelFabric.MultilLevelHandler();
+            _destLevelIdentifier = extraLevelHandlerList.DestinationLevelHandler();
+            _reactionTimeHandler = extraLevelHandlerList.ReactionTimeHandler();
+            _groupHandler = pGroupHander;
+
+            _nsUpdater = new NextStepGroupUpdater(pCore, pGroupHander);
+            _destinationLevels = _levelHandler.DestinationLevelIDs;
+        }
+
+        public void SetSignals(UpdateSignals signals)
+        {
+            if (_nsUpdater != null)
+                _nsUpdater.SetSignals(signals);
+        }
+
+        public bool ReadyToUpdate(Domain.Agent pAgent, int index, UpdateSignals signals, IThreatHandler tHandler)
+        {
+            //set current level
+            if (pAgent.ePhase == Domain.EvacuationPhase.Initial && pAgent.CurrentLevel == null)
+            {
+                if (pAgent.Type == Domain.AgentType.Follower)
+                {
+                    var targetLevelID = _groupHandler.EvacuationLevelID((int)pAgent.GroupID_C);
+
+                    if (targetLevelID != -1)
+                        pAgent.TargetLevelId = targetLevelID;
+                    else
+                        return false;
+                }
+                
+                var level = _levelHandler.Find(pAgent.LevelId);
+                if (level != null)
+                {
+                    pAgent.CurrentLevel = level;
+
+                    if (pAgent.Type != Domain.AgentType.Follower)
+                    {
+                        //idenfity destination level
+                        pAgent.TargetLevelId =
+                            (_destinationLevels.Count == 1) ? _destinationLevels.First()
+                                : _destLevelIdentifier.LevelID(pAgent.CurrentLevel.LevelId, _destinationLevels);
+
+                        if (pAgent.Type == Domain.AgentType.Leader)
+                        {
+                            signals.SendSignal(
+                                CoreEventType.GroupDataUpdate,
+                                    new TargetLevelID(
+                                    Convert.ToInt32(pAgent.GroupID_C), pAgent.TargetLevelId)
+                            );
+                        }
+                    }
+                }
+                else
+                {
+                    LogWriter.Instance.WriteToLog("Impossible to determine agent's current level....quit");
+                    pAgent.Active = false;
+                    return false;
+                }
+            }
+
+            //try
+            //{
+            #region
+
+            //Check is agent is on the stairway
+            if (AgentIsOnStairway(pAgent))
+            {
+                if (pAgent.EnvLocation != Domain.Location.MovingInsideStairway)
+                {
+                    pAgent.EnvLocation = Domain.Location.MovingInsideStairway;
+                    pAgent.DecisionUpdateIsRequired = true;
+                }
+            }
+            else
+            {
+                if (pAgent.EnvLocation == Domain.Location.MovingInsideStairway)
+                {
+                    var lastStairwellEntry = pAgent.StInfo.StairEntries.Last();
+
+                    var enterDistance =
+                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                            lastStairwellEntry.Value.EntryPoint.X, lastStairwellEntry.Value.EntryPoint.Y
+                    );
+
+                    var exitDistance =
+                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                            lastStairwellEntry.Value.ExitPoint.X, lastStairwellEntry.Value.ExitPoint.Y
+                    );
+
+                    if ((exitDistance - enterDistance) <= 0) //stepped into new level
+                    {
+                        pAgent.OnDestinationLevel = (lastStairwellEntry.Value.ExitPoint.LevelId == pAgent.TargetLevelId);
+
+                        if (lastStairwellEntry.Value.IntentedToEvacuate)
+                        {
+                            //set new level object
+                            var nextLevelId = (pAgent.OnDestinationLevel) ? pAgent.TargetLevelId :
+                                (pAgent.Direction == Domain.Direction.Up ?
+                                    pAgent.CurrentLevel.LevelId + 1 : pAgent.CurrentLevel.LevelId - 1);
+
+                            pAgent.CurrentLevel = _levelHandler.Find(nextLevelId);
+
+                            if (pAgent.CurrentLevel == null)
+                            {
+                                LogWriter.Instance.WriteToLog("Impossible to update agent's current level....quit");
+                                pAgent.Active = false;
+                                return false;
+                            }
+                        }
+
+                        pAgent.LevelId = pAgent.CurrentLevel.LevelId;
+                        pAgent.TempLevelId = pAgent.CurrentLevel.LevelId;
+                    }
+                    else // pushed back to a level where it came from
+                    {
+                        pAgent.TempLevelId = lastStairwellEntry.Value.EntryPoint.LevelId;
+                        pAgent.LevelId = lastStairwellEntry.Value.EntryPoint.LevelId;
+                    }
+
+                    if (!pAgent.DecisionUpdateIsRequired)
+                        pAgent.DecisionUpdateIsRequired = true;
+
+                    pAgent.Stair = null;
+                    pAgent.EvacData.LookingForGates = true;
+
+                    if (pAgent.PushedIntoWrongStairway)
+                        pAgent.PushedIntoWrongStairway = false;
+                }
+
+                if (pAgent.EnvLocation != Domain.Location.MovingInsideRoom)
+                    pAgent.EnvLocation = Domain.Location.MovingInsideRoom;
+
+                if (pAgent.Direction != Domain.Direction.Straight)
+                    pAgent.Direction = Domain.Direction.Straight;
+            }
+
+            switch (pAgent.EnvLocation)
+            {
+                case Domain.Location.MovingInsideStairway:
+                    {
+                        if (pAgent.DecisionUpdateIsRequired)
+                        {
+                            Debug.Assert(pAgent.Stair != null, "pAgent.Stair != null");
+                            var stairwayId = pAgent.Stair.StairwayID;
+
+                            if (!pAgent.StInfo.StairEntries.ContainsKey(stairwayId)) //agent has entered new stairway
+                            {
+                                //agent could have been accidentally pushed into a staircase as he was trying to leave the environment
+                                if (pAgent.PushedIntoWrongStairway)
+                                {
+                                    var bottomLevelGate = pAgent.Stair.BottomLevelGate();
+                                    var topLevelGate = pAgent.Stair.TopLevelGate();
+
+                                    //agent must leave the staircase via the nearest port
+                                    var lowLevelExit =
+                                            Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                            bottomLevelGate.VMiddle.X, bottomLevelGate.VMiddle.Y
+                                    );
+
+                                    var topLevelExit =
+                                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                            topLevelGate.VMiddle.X, topLevelGate.VMiddle.Y
+                                    );
+
+                                    //check the exit port type
+                                    var exitPortType = (lowLevelExit < topLevelExit) ? PortType.LowerPort : PortType.UpperPort;
+                                    //get corresponding exit gate                       
+                                    var exitGate = pAgent.Stair.GetCorrespondingPort(exitPortType);
+
+                                    if (exitGate != null)
+                                    {
+                                        var gateList = new List<RoomElement> { exitGate };
+
+                                        //update stairway movement info data                                                      
+                                        GateInfo entryPoint = new GateInfo(pAgent.CurrentLevel.LevelId);
+                                        entryPoint.SetGateInfo(exitGate.ElementId, exitGate.VMiddle.X, exitGate.VMiddle.Y);
+
+                                        StairEntries newStairEntriesInfo =
+                                            new StairEntries(pAgent.Stair, entryPoint, entryPoint, false);
+
+                                        pAgent.StInfo.StairEntries.Add(stairwayId, newStairEntriesInfo);
+
+                                        var areaId = _stairWayHandler.GetAreaID(stairwayId);
+
+                                        _nsUpdater.SetGate(index, areaId, gateList);
+                                        pAgent.Walls = pAgent.Stair.Walls;
+
+                                        var topLevelID = pAgent.Stair.TopLevelId();
+                                        var bottomLevelID = pAgent.Stair.BottomLevelId();
+
+                                        pAgent.TempLevelId = Math.Min(bottomLevelID, topLevelID);// (topLevelID > )//pAgent.CurrentLevel.LevelId;
+                                    }
+                                }
+                                else
+                                {
+                                    //get direction (up, down)
+                                    var destPortType = pAgent.CurrentLevel.LevelId > pAgent.TargetLevelId ? PortType.LowerPort : PortType.UpperPort;
+                                    pAgent.Direction = destPortType == PortType.LowerPort ? Domain.Direction.Down : Domain.Direction.Up;
+
+                                    //update current level ID
+                                    var nextLevelId =
+                                        pAgent.Direction == Domain.Direction.Up ?
+                                            pAgent.CurrentLevel.LevelId + 1 : pAgent.CurrentLevel.LevelId - 1;
+
+                                    pAgent.TempLevelId = pAgent.Direction == Domain.Direction.Up ? pAgent.CurrentLevel.LevelId : nextLevelId;
+
+                                    //get entry port type
+                                    var entryPortType = destPortType == PortType.LowerPort ? PortType.UpperPort : PortType.LowerPort;
+                                    //get corresponding entry gate
+                                    var entryGate = pAgent.Stair.GetCorrespondingPort(entryPortType);
+
+                                    //get corresponding destination gate                       
+                                    var destinationGate = pAgent.Stair.GetCorrespondingPort(destPortType);
+
+                                    if (entryGate != null && destinationGate != null)
+                                    {
+                                        var gateList = new List<RoomElement> { destinationGate };
+
+                                        //update stairway movement info data                                                      
+                                        GateInfo entryPoint = new GateInfo(pAgent.CurrentLevel.LevelId);
+                                        entryPoint.SetGateInfo(entryGate.ElementId, pAgent.DesiredPosition.X, pAgent.DesiredPosition.Y);
+
+                                        GateInfo exitPoint = new GateInfo(nextLevelId);
+                                        exitPoint.SetGateInfo(destinationGate.ElementId, destinationGate.VMiddle.X, destinationGate.VMiddle.Y);
+
+                                        StairEntries newStairEntriesInfo =
+                                            new StairEntries(pAgent.Stair, entryPoint, exitPoint);
+
+                                        pAgent.StInfo.StairEntries.Add(stairwayId, newStairEntriesInfo);
+
+                                        var areaId = _stairWayHandler.GetAreaID(stairwayId);
+
+                                        _nsUpdater.SetGate(index, areaId, gateList);
+                                        pAgent.Walls = pAgent.Stair.Walls;
+                                    }
+                                }
+                            }
+                            else //pushed into the previous stairway
+                            {
+                                if (pAgent.StInfo.StairEntries[stairwayId].IntentedToEvacuate)
+                                {
+                                    var prevStairObject = pAgent.StInfo.StairEntries.Last();
+                                    var entryLevelId = prevStairObject.Value.EntryPoint.LevelId;
+                                    var exitLevelId = prevStairObject.Value.ExitPoint.LevelId;
+
+                                    pAgent.Direction = entryLevelId > exitLevelId ? Domain.Direction.Down : Domain.Direction.Up;
+
+                                    //restore the level ID from which this agent began to walk on this stairwell
+                                    pAgent.CurrentLevel = _levelHandler.Find(entryLevelId);
+
+                                    if (pAgent.CurrentLevel == null)
+                                    {
+                                        LogWriter.Instance.WriteToLog("Impossible to update agent's current level....quit");
+                                        pAgent.Active = false;
+                                        return false;
+                                    }
+
+                                    pAgent.LevelId = pAgent.CurrentLevel.LevelId;
+                                    pAgent.TempLevelId = Math.Min(entryLevelId, exitLevelId);//exitLevelId < entryLevelId ? exitLevelId : entryLevelId;//Math.Min(entryLevelID, exitLevelID);                                          
+
+                                    var portType = pAgent.CurrentLevel.LevelId > pAgent.TargetLevelId ? PortType.LowerPort : PortType.UpperPort;
+                                    var destinationGate = pAgent.Stair.GetCorrespondingPort(portType);
+
+                                    if (destinationGate != null)
+                                    {
+                                        var gateList = new List<RoomElement> { destinationGate };
+                                        var areaId = _stairWayHandler.GetAreaID(prevStairObject.Key);
+                                        _nsUpdater.SetGate(index, areaId, gateList);
+
+                                        pAgent.Walls = pAgent.Stair.Walls;
+                                    }
+                                }
+                                else
+                                {
+                                    var bottomLevelGate = pAgent.Stair.BottomLevelGate();
+                                    var topLevelGate = pAgent.Stair.TopLevelGate();
+
+                                    //agent must leave the staircase via the nearest port
+                                    var lowLevelExit =
+                                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                            bottomLevelGate.VMiddle.X, bottomLevelGate.VMiddle.Y
+                                    );
+
+                                    var topLevelExit =
+                                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                            topLevelGate.VMiddle.X, topLevelGate.VMiddle.Y
+                                    );
+
+                                    var exitPortType = (lowLevelExit < topLevelExit) ? PortType.LowerPort : PortType.UpperPort;
+
+                                    //get corresponding exit gate                       
+                                    var exitGate = pAgent.Stair.GetCorrespondingPort(exitPortType);
+
+                                    if (exitGate != null)
+                                    {
+                                        var gateList = new List<RoomElement> { exitGate };
+                                        var areaId = _stairWayHandler.GetAreaID(stairwayId);
+                                        _nsUpdater.SetGate(index, areaId, gateList);
+                                        pAgent.Walls = pAgent.Stair.Walls;
+
+                                        pAgent.TempLevelId = (lowLevelExit < topLevelExit) ? pAgent.Stair.BottomLevelId() : pAgent.Stair.TopLevelId();
+                                    }
+                                }
+                            }
+
+                            pAgent.DecisionUpdateIsRequired = false;
+                        }
+                    }
+                    break;
+
+                case Domain.Location.MovingInsideRoom:
+                    {
+                        var currentRoomID = pAgent.CurrentLevel.GetRoomID(pAgent.X, pAgent.Y);
+
+                        if (currentRoomID == -1)
+                        {
+                            pAgent.LeaveEnvironment();
+                            return false;
+                        }
+
+                        if (pAgent.DecisionUpdateIsRequired)
+                        {
+                            pAgent.StartLookingForNewStair = false;
+
+                            if (pAgent.VisitedRooms.Count != 0)
+                                pAgent.VisitedRooms.Clear();
+
+                            pAgent.OnDestinationLevel = (pAgent.CurrentLevel.LevelId == pAgent.TargetLevelId);
+                            pAgent.InitialRoomID = currentRoomID;
+                            pAgent.CurrentRoomID = currentRoomID;
+
+                            pAgent.EvacData.GateType =
+                               (pAgent.OnDestinationLevel) ? InnerType.EvacuationGate :
+                                   (pAgent.CurrentLevel.LevelId > pAgent.TargetLevelId ? InnerType.StairwayGateDown : InnerType.StairwayGateUp);
+
+                            if (pAgent.Type == AgentType.Follower)
+                            {
+                                //check if evacuation path was updated by the leader
+                                if (!_groupHandler.EvacuationPathIsReady(
+                                    Convert.ToInt32(pAgent.GroupID_C), pAgent.CurrentLevel.LevelId))
+                                {
+                                    return false;
+                                }
+                                else //copy evac path
+                                {
+                                    if (pAgent.EvacData.Path.Count != 0)
+                                        pAgent.EvacData.Path.Clear();
+
+                                    pAgent.EvacData.Path.AddRange(
+                                        _groupHandler.EvacPath(
+                                            Convert.ToInt32(pAgent.GroupID_C),
+                                            pAgent.CurrentLevel.LevelId)
+                                    );
+                                    pAgent.EvacData.DestinationRoomID = pAgent.EvacData.Path.Last();
+                                }
+                            }
+                            else
+                            {
+                               
+                                var areaID = pAgent.CurrentLevel.GetGridAreaId(currentRoomID);                             
+
+                                var evacuationPathIsFound =
+                                    (pAgent.OnDestinationLevel) ? (pAgent.UseDesignatedGate ?
+                                            EvacuationHandler.GetPath<EvacPathToFixedGate>(pAgent, areaID, tHandler) :
+                                            EvacuationHandler.GetPath<GeneralPath>(pAgent, areaID, tHandler)) :
+                                        EvacuationHandler.GetPath<GeneralPath>(pAgent, areaID, tHandler);
+
+                                if (!evacuationPathIsFound)
+                                    return false;
+
+                                var evacuationPathSize = pAgent.EvacData.Path.Count;
+                                if (evacuationPathSize == 0)
+                                {
+                                    pAgent.Active = pAgent.HasToWait ? true : false;
+                                    return false;
+                                }
+
+                                if (pAgent.Type == AgentType.Leader)
+                                    SendEvacPathUpdateMsg(pAgent, signals);
+                            }                           
+
+                            pAgent.DecisionUpdateIsRequired = false;
+                            pAgent.ePhase = EvacuationPhase.Initial;
+                        }
+                        else
+                        {
+                            switch (pAgent.ePhase)
+                            {
+                                case EvacuationPhase.Initial:
+                                    {
+                                        var gateShouldBeSetStraightAway = false;
+
+                                        if (!pAgent.ReactionTimeRequired)
+                                        {
+                                            gateShouldBeSetStraightAway = true;
+                                        }
+                                        else
+                                        {
+                                            if (pAgent.Type != AgentType.Follower)
+                                            {
+                                                var evacuationPathSize = pAgent.EvacData.Path.Count;
+                                                var gates = (pAgent.OnDestinationLevel) ?  //agent is on their destination level
+                                                    (evacuationPathSize == 1) ?
+                                                        pAgent.CurrentLevel.GetDestinationGates(currentRoomID) :
+                                                        pAgent.CurrentLevel.GetCommonGates(currentRoomID, pAgent.EvacData.Path[1])
+                                                    :
+                                                    //intermediate level
+                                                    ((evacuationPathSize == 1) ?
+                                                        pAgent.CurrentLevel.GetSpecificRoomGatesByRoomID(currentRoomID, pAgent.EvacData.GateType) :
+                                                        pAgent.CurrentLevel.GetCommonGates(currentRoomID, pAgent.EvacData.Path[1])
+                                                    );                                               
+
+                                                //set reactionTime   
+                                                var agentReactionTimeData = _reactionTimeHandler.ReactionTime(pAgent.X, pAgent.Y, pAgent.AgentId, gates);
+                                                signals.SendSignal(CoreEventType.ReactionTimeData, agentReactionTimeData);
+
+                                                pAgent.ReactionTime = (int)(agentReactionTimeData.ReactionTime / Params.Current.TimeStep);
+
+                                                if (pAgent.ReactionTime == 0)
+                                                    gateShouldBeSetStraightAway = true;
+                                                else
+                                                    pAgent.ePhase = EvacuationPhase.Reaction;
+
+                                                pAgent.ReactionTimeRequired = false;
+                                            }
+                                            else
+                                            {
+                                                var areaID = pAgent.CurrentLevel.GetGridAreaId(currentRoomID);
+
+                                                if (_groupHandler.IsGateSet(
+                                                    Convert.ToInt32(pAgent.GroupID_C), pAgent.CurrentLevel.LevelId, currentRoomID)
+                                                    )
+                                                {
+                                                    var evacGate =
+                                                        _groupHandler.Gate(
+                                                            Convert.ToInt32(pAgent.GroupID_C),
+                                                            pAgent.CurrentLevel.LevelId, currentRoomID);
+
+                                                    _nsUpdater.SetRoomDataForAgent(pAgent, currentRoomID);
+                                                    _nsUpdater.SetGate(index, areaID, new List<RoomElement> { evacGate });
+
+                                                    pAgent.VisitedRooms.Add(pAgent.CurrentRoomID, pAgent.EvacIndex);
+
+                                                    pAgent.StartLookingForNewStair = true;
+                                                    pAgent.ePhase = EvacuationPhase.NextSteps;
+                                                }
+                                                else
+                                                {
+                                                    return false;
+                                                }
+                                            }
+                                        }
+
+                                        if (gateShouldBeSetStraightAway)
+                                        {
+                                            var areaID = pAgent.CurrentLevel.GetGridAreaId(currentRoomID);
+
+                                            if (pAgent.Type != AgentType.Follower)
+                                            {
+                                                _nsUpdater.SetRoomDataForAgent(pAgent, currentRoomID);
+                                                _nsUpdater.ProcessUpdatedEvacuationPath(pAgent, tHandler, areaID, index);
+                                            }
+                                            else
+                                            {
+                                                if (_groupHandler.IsGateSet(
+                                                    Convert.ToInt32(pAgent.GroupID_C), pAgent.CurrentLevel.LevelId, currentRoomID)
+                                                    )
+                                                {
+                                                    var evacGate =
+                                                        _groupHandler.Gate(
+                                                            Convert.ToInt32(pAgent.GroupID_C),
+                                                            pAgent.CurrentLevel.LevelId, currentRoomID);
+
+                                                    _nsUpdater.SetRoomDataForAgent(pAgent, currentRoomID);
+                                                    _nsUpdater.SetGate(index, areaID, new List<RoomElement> { evacGate });
+                                                    pAgent.VisitedRooms.Add(pAgent.CurrentRoomID, pAgent.EvacIndex);
+                                                }
+                                                else
+                                                {
+                                                    return false;
+                                                }
+                                            }
+
+                                            pAgent.StartLookingForNewStair = true;
+                                            pAgent.ePhase = EvacuationPhase.NextSteps;
+                                        }
+                                    }
+                                    break;
+
+                                case EvacuationPhase.Reaction:
+                                    {
+                                        if (++pAgent.NCycles >= pAgent.ReactionTime)
+                                        {
+                                            var areaID = pAgent.CurrentLevel.GetGridAreaId(currentRoomID);
+
+                                            _nsUpdater.SetRoomDataForAgent(pAgent, currentRoomID);
+                                            _nsUpdater.ProcessUpdatedEvacuationPath(pAgent, tHandler, areaID, index);
+
+                                            pAgent.StartLookingForNewStair = true;
+                                            pAgent.ePhase = EvacuationPhase.NextSteps;
+                                        }
+                                    }
+                                    break;
+
+                                case EvacuationPhase.WatchForLeader:
+                                case EvacuationPhase.NextSteps:
+                                    _nsUpdater.CheckLocation(index, currentRoomID, pAgent, signals, tHandler, false);
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            #endregion
+            //}
+            /*
+            catch (Exception ex)
+            {
+                LogWriter.Instance.WriteToLog(ex.ToString());
+            }
+            */
+            // Sets the next desired point to be the next closest point on the path
+            return pAgent.EvacData.UpdatingPaths || pAgent.HasToWait ? false : pAgent.UpdatePath();
+        }
+
+        public uint GetGridAreaId(Domain.Agent pAgent)
+        {
+            if (pAgent.EnvLocation == Domain.Location.MovingInsideStairway)
+                return _stairWayHandler.GetAreaID(pAgent.Stair.StairwayID);
+
+            return pAgent.CurrentLevel.GetGridAreaId(pAgent.CurrentRoomID);
+        }
+
+        private bool AgentIsOnStairway(Domain.Agent pAgent)
+        {
+            if (pAgent.Stair == null
+                && pAgent.StartLookingForNewStair
+                && pAgent.CurrentLevel.LevelId != pAgent.TargetLevelId)
+            {
+                pAgent.Stair = _stairWayHandler.StairwayToUse(
+                    pAgent.X, pAgent.Y, pAgent.CurrentLevel.LevelId,
+                    pAgent.EvacData.GateType, pAgent.CurrentGateId
+                );
+            }
+
+            if (pAgent.Direction == Domain.Direction.Straight)
+            {
+                //agent can either be pushed to the previous staircase
+                //or enter new staircase by accident                  
+                if (pAgent.StInfo.StairEntries.Count != 0)
+                {
+                    var previousStairwayObject = pAgent.StInfo.StairEntries.Last();
+
+                    if (previousStairwayObject.Value.Stair.PointIsInside(pAgent.X, pAgent.Y))
+                    {
+                        //calculate the distance between the current location and the enter port
+                        var enterDistance =
+                            Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                previousStairwayObject.Value.EntryPoint.X, previousStairwayObject.Value.EntryPoint.Y
+                        );
+
+                        //calculate the distance between the current location and the exit port
+                        var exitDistance =
+                            Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                                previousStairwayObject.Value.ExitPoint.X, previousStairwayObject.Value.ExitPoint.Y
+                        );
+
+                        if (exitDistance < enterDistance)
+                        {
+                            //current stair object points to previously visited stairway
+                            pAgent.Stair = previousStairwayObject.Value.Stair;
+                            return true;
+                        }
+                    }
+                }
+
+                //check another stairscase that does not appear in StairEntries
+                var strangeStaircase =
+                    _stairWayHandler.StairwayToUse(pAgent.X, pAgent.Y,
+                        pAgent.CurrentLevel.LevelId, pAgent.StInfo.StairEntries
+                );
+
+                if (strangeStaircase != null)
+                {
+                    if (!(pAgent.Stair != null && pAgent.Stair.StairwayID == strangeStaircase.StairwayID))
+                    {
+                        pAgent.Stair = strangeStaircase;
+                        pAgent.PushedIntoWrongStairway = true;
+                        return true;
+                    }
+                }
+            }
+
+            if (pAgent.Stair != null)
+            {
+                if (pAgent.StartLookingForNewStair)
+                    pAgent.StartLookingForNewStair = false;
+
+                if (pAgent.Stair.PointIsInside(pAgent.X, pAgent.Y))
+                    return true;
+            }
+
+
+            return false;
+
+            /*
+            if (pAgent.Stair == null 
+                && pAgent.StartLookingForNewStair 
+                && pAgent.CurrentLevel.LevelId != pAgent.TargetLevelId)
+            {
+                pAgent.Stair = _stairWayHandler.StairwayToUse(
+                    pAgent.X, pAgent.Y, pAgent.CurrentLevel.LevelId,
+                    pAgent.EvacData.GateType, pAgent.CurrentGateId
+                );
+            }
+
+            //check if an agent was accidentally pushed back into the previous stairway
+            if (pAgent.StInfo.StairEntries.Count != 0 && pAgent.Direction == Domain.Direction.Straight)
+            {
+                var previousStairwayObject = pAgent.StInfo.StairEntries.Last();
+
+                if (previousStairwayObject.Value.Stair.PointIsInside(pAgent.X, pAgent.Y))
+                {
+                    //calculate the distance between the current location and the enter port
+                    var enterDistance =
+                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                            previousStairwayObject.Value.EntryPoint.X, previousStairwayObject.Value.EntryPoint.Y
+                    );
+
+                    //calculate the distance between the current location and the exit port
+                    var exitDistance =
+                        Utils.DistanceBetween(pAgent.X, pAgent.Y,
+                            previousStairwayObject.Value.ExitPoint.X, previousStairwayObject.Value.ExitPoint.Y
+                    );
+
+                    if (exitDistance < enterDistance)
+                    {
+                        //current stair object points to previously visited stairway
+                        pAgent.Stair = previousStairwayObject.Value.Stair;
+                        return true;
+                    }
+                    else
+                    {
+                        // Find stairway object below previousStairwayObject and move into it.
+                        // Recalculate paths
+                        pAgent.Stair = _stairWayHandler.StairwayToUse(
+                            pAgent.X, pAgent.Y, pAgent.CurrentLevel.LevelId,
+                            pAgent.EvacData.GateType);
+
+                        if (pAgent.Stair != null)
+                        {
+                            pAgent.StartLookingForNewStair = false;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            if (pAgent.Stair != null)
+            {
+                if (pAgent.StartLookingForNewStair)
+                    pAgent.StartLookingForNewStair = false;
+
+                if (pAgent.Stair.PointIsInside(pAgent.X, pAgent.Y))
+                    return true;
+            }
+
+            return false;  
+            */
+        }
+
+        private void SendEvacPathUpdateMsg(Domain.Agent pAgent, UpdateSignals signals)
+        {
+            //send [evac path found] signal
+            signals.SendSignal(
+                CoreEventType.GroupDataUpdate,
+                new EvacuationPathUpdate(
+                    Convert.ToInt32(pAgent.GroupID_C), pAgent.CurrentLevel.LevelId, pAgent.EvacData.Path)
+            );
+        }
+    }
+}

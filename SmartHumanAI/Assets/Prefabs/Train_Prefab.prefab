@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6895122363324495062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6895122363324495064}
+  - component: {fileID: 8794232511049162213}
+  - component: {fileID: 6895122363324495063}
+  - component: {fileID: -5106217924450501873}
+  m_Layer: 8
+  m_Name: Train_Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6895122363324495064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895122363324495062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20, y: 0, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8794232511049162213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895122363324495062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4da63fdb0e0f2d468f7bf716fea98a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrivalSpeed: 10
+  ObjectId: -1
+  level: -1
+  rotation: 0
+  type: 0
+  wallList: []
+  gateList: []
+  StartVector3: {x: 0, y: 0, z: 0}
+  MiddleVector3: {x: 0, y: 0, z: 0}
+  EndVector3: {x: 0, y: 0, z: 0}
+  trainGen: {fileID: 6895122363324495063}
+  color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &6895122363324495063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895122363324495062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c41529312581d247a7d74bf6517ab8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorOpen: 0
+  doorOpenLeft: 1
+  numCarriages: 1
+  doorWidth: 1.638
+  defaultCarriageLength: 28
+  numDoorsList: 
+  carriageLengthsList: []
+  boardDistributionList: []
+  trainDoorsOpen: []
+  trainDoorsClosed: []
+  trainParts: []
+  trainWallsGates: []
+  trainAgentDists: []
+  defaultWaitingAreaPoints: []
+  Train_Front: {fileID: -927199367670048503, guid: 9c45124109faf4c4992b7d3e3a10d4c9,
+    type: 3}
+  Train_Window: {fileID: -927199367670048503, guid: 8b700b6d0f21c364ea691ee63c17fd51,
+    type: 3}
+  Train_Door: {fileID: -927199367670048503, guid: 5abf84e3100933f4bb3e5263f15bb6af,
+    type: 3}
+  Train_DoorOpen: {fileID: -927199367670048503, guid: 348a0ff1898cc734a9e9a1ccde2a9bb2,
+    type: 3}
+  Train_Back: {fileID: -927199367670048503, guid: 9cbabd51d8274954e8039641bd023800,
+    type: 3}
+  Train_Track: {fileID: -927199367670048503, guid: 3989ee57e2f8ddf43998eab21b06efe6,
+    type: 3}
+  trainInfo: {fileID: 8794232511049162213}
+  collider: {fileID: -5106217924450501873}
+--- !u!65 &-5106217924450501873
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6895122363324495062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6, y: 2.2, z: 1}
+  m_Center: {x: 0, y: 1.25, z: 0}

@@ -1,0 +1,1787 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f0b0c553be8edd4682e9180fdd13e37, type: 3}
+  m_Name: I2Languages
+  m_EditorClassIdentifier: 
+  mSource:
+    UserAgreesToHaveItOnTheScene: 0
+    UserAgreesToHaveItInsideThePluginsFolder: 0
+    GoogleLiveSyncIsUptoDate: 1
+    mTerms:
+    - Term: (Automatic)
+      TermType: 0
+      Description: 
+      Languages:
+      - (Automatic)
+      - "\uFF08\u81EA\u52A8\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (H) Barricade
+      TermType: 0
+      Description: 
+      Languages:
+      - (H) Barricade
+      - "\uFF08\u9AD8\uFF09\u8DEF\u969C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (L) Barricade
+      TermType: 0
+      Description: 
+      Languages:
+      - (L) Barricade
+      - "\uFF08\u4F4E\uFF09\u8DEF\u969C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (Saves Memory)
+      TermType: 0
+      Description: 
+      Languages:
+      - (Saves Memory)
+      - "\uFF08\u8282\u7701\u5185\u5B58\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: (Simulation Computing in Progress)
+      TermType: 0
+      Description: 
+      Languages:
+      - (Simulation Computing in Progress)
+      - "\uFF08\u6B63\u5728\u8FDB\u884C\u4EFF\u771F\u8BA1\u7B97\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: /Sec
+      TermType: 0
+      Description: 
+      Languages:
+      - /Sec
+      - "\u6BCF\u79D2"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: About this Program
+      TermType: 0
+      Description: 
+      Languages:
+      - About this Program
+      - "\u5173\u4E8E\u6B64\u7A0B\u5E8F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Academic Dialog
+      TermType: 0
+      Description: 
+      Languages:
+      - Advanced settings should only be enabled when the user is trained and knows
+        what they're doing. Changing advanced settings can dramatically change the
+        accuracy of simulations.
+      - "\u53EA\u6709\u5728\u57F9\u8BAD\u7528\u6237\u540E\u624D\u80FD\u542F\u7528\u201C\u5B66\u672F\u8BBE\u7F6E\u201D\u3002
+        \u66F4\u6539\u5B66\u672F\u8BBE\u7F6E\u4F1A\u5927\u5927\u6539\u53D8\u6A21\u62DF\u7684\u51C6\u786E\u6027\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Activate Online
+      TermType: 0
+      Description: 
+      Languages:
+      - Activate Online
+      - "\u6FC0\u6D3B\u5728\u7EBF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Advanced Settings:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Advanced Settings:'
+      - "\u9AD8\u7EA7\u8BBE\u7F6E\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Agent
+      TermType: 0
+      Description: 
+      Languages:
+      - Agent
+      - "\u884C\u4EBA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Agents
+      TermType: 0
+      Description: 
+      Languages:
+      - Agents
+      - "\u884C\u4EBA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Animations
+      TermType: 0
+      Description: 
+      Languages:
+      - Animations
+      - "\u52A8\u753B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Area (Circular)
+      TermType: 0
+      Description: 
+      Languages:
+      - Area (Circular)
+      - "\u533A\u57DF\uFF08\u5706\u5F62\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Area (Square)
+      TermType: 0
+      Description: 
+      Languages:
+      - Area (Square)
+      - "\u533A\u57DF\uFF08\u6B63\u65B9\u5F62\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Auto Cancel (sec)
+      TermType: 0
+      Description: 
+      Languages:
+      - Auto Cancel (sec)
+      - "\u81EA\u52A8\u53D6\u6D88\uFF08\u79D2\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Avg Density
+      TermType: 0
+      Description: 
+      Languages:
+      - Avg Density
+      - "\u5E73\u5747\u5BC6\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Avg Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - Avg Speed
+      - "\u5E73\u5747\u901F\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Avoidance Circle
+      TermType: 0
+      Description: 
+      Languages:
+      - Avoidance Circle
+      - "\u89C4\u907F\u5708"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Bench Seat
+      TermType: 0
+      Description: 
+      Languages:
+      - Bench Seat
+      - "\u957F\u6761\u5EA7\u6905"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: CANCEL
+      TermType: 0
+      Description: 
+      Languages:
+      - CANCEL
+      - "\u53D6\u6D88"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Cancel
+      TermType: 0
+      Description: 
+      Languages:
+      - Cancel
+      - "\u53D6\u6D88\r"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Choices
+      TermType: 0
+      Description: 
+      Languages:
+      - Choices
+      - "\u9009\u62E9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Circle
+      TermType: 0
+      Description: 
+      Languages:
+      - Circle
+      - "\u5706\u5F62\u4E2D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Circle Obstacle
+      TermType: 0
+      Description: 
+      Languages:
+      - Circle Obstacle
+      - "\u5706\u5F62\u969C\u788D\u7269"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Clear
+      TermType: 0
+      Description: 
+      Languages:
+      - Clear
+      - "\u6E05\u9664"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Click on a prefab to insert it.
+      TermType: 0
+      Description: 
+      Languages:
+      - Click on a prefab to insert it.
+      - "\u70B9\u51FB\u8981\u63D2\u5165\u7684\u9884\u5236\u7EC4\u4EF6\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Collisions
+      TermType: 0
+      Description: 
+      Languages:
+      - Collisions
+      - "\u78B0\u649E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Color
+      TermType: 0
+      Description: 
+      Languages:
+      - Color
+      - "\u989C\u8272"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Connect To HoloLens
+      TermType: 0
+      Description: 
+      Languages:
+      - Connect To HoloLens
+      - "\u8FDE\u63A5\u5230HoloLens"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Could not find license.lic file
+      TermType: 0
+      Description: 
+      Languages:
+      - Could not find license.lic file
+      - "license.lic \u627E\u4E0D\u5230"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Could not initialise simulator.
+      TermType: 0
+      Description: 
+      Languages:
+      - Could not initialise simulator.
+      - "\u65E0\u6CD5\u521D\u59CB\u5316\u6A21\u62DF\u5668\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Create
+      TermType: 0
+      Description: 
+      Languages:
+      - Create
+      - "\u521B\u5EFA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Crowd Manual
+      TermType: 0
+      Description: 
+      Languages:
+      - Crowd Manual
+      - "Crowd\u4F7F\u7528\u8BF4\u660E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: DELETE
+      TermType: 0
+      Description: 
+      Languages:
+      - DELETE
+      - "\u5220\u9664"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Danger
+      TermType: 0
+      Description: 
+      Languages:
+      - Danger
+      - "\u5371\u9669"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Data Positions
+      TermType: 0
+      Description: 
+      Languages:
+      - Data Positions
+      - "\u6570\u636E\u4F4D\u7F6E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Date
+      TermType: 0
+      Description: 
+      Languages:
+      - Date
+      - "\u65E5\u671F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Decisions
+      TermType: 0
+      Description: 
+      Languages:
+      - Decisions
+      - "\u51B3\u7B56"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Designate
+      TermType: 0
+      Description: 
+      Languages:
+      - Designate
+      - "\u6307\u5B9A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Disabled
+      TermType: 0
+      Description: 
+      Languages:
+      - Disabled
+      - "\u5DF2\u7981\u7528"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Display All Levels
+      TermType: 0
+      Description: 
+      Languages:
+      - Display All Levels
+      - "\u663E\u793A\u6240\u6709\u697C\u5C42"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Distribution Table
+      TermType: 0
+      Description: 
+      Languages:
+      - Distribution Table
+      - "\u5206\u5E03\u8868"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Double Winder
+      TermType: 0
+      Description: 
+      Languages:
+      - Double Winder
+      - "\u5F27\u5F62\u697C\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Duplicate Top Level
+      TermType: 0
+      Description: 
+      Languages:
+      - Duplicate Top Level
+      - "\u590D\u5236\u9876\u5C42"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Duration (sec)
+      TermType: 0
+      Description: 
+      Languages:
+      - Duration (sec)
+      - "\u65F6\u957F\uFF08\u79D2\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dynamic
+      TermType: 0
+      Description: 
+      Languages:
+      - Dynamic
+      - "\u52A8\u6001"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Edit
+      TermType: 0
+      Description: 
+      Languages:
+      - Edit
+      - "\u7F16\u8F91"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Elevator/Lift
+      TermType: 0
+      Description: 
+      Languages:
+      - Elevator/Lift
+      - "\u5347\u964D\u673A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Emergency Behaviour
+      TermType: 0
+      Description: 
+      Languages:
+      - Emergency Behaviour
+      - "\u7D27\u6025\u884C\u4E3A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Enabled
+      TermType: 0
+      Description: 
+      Languages:
+      - Enabled
+      - "\u5DF2\u542F\u7528"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Escalator
+      TermType: 0
+      Description: 
+      Languages:
+      - Escalator
+      - "\u81EA\u52A8\u6276\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Evac Times
+      TermType: 0
+      Description: 
+      Languages:
+      - Evac Times
+      - "\u758F\u6563\u65F6\u95F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Evacuation Time:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Evacuation Time:'
+      - "\u758F\u6563\u65F6\u95F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Exact Data
+      TermType: 0
+      Description: 
+      Languages:
+      - Exact Data
+      - "\u7CBE\u786E\u6570\u636E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Exit
+      TermType: 0
+      Description: 
+      Languages:
+      - Exit
+      - "\u9000\u51FA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Exit Sign
+      TermType: 0
+      Description: 
+      Languages:
+      - Exit Sign
+      - "\u51FA\u53E3\u6307\u793A\u724C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Export Data
+      TermType: 0
+      Description: 
+      Languages:
+      - Export Data
+      - "\u5BFC\u51FA\u6570\u636E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Export Heatmaps
+      TermType: 0
+      Description: 
+      Languages:
+      - Export Heatmaps
+      - "\u5BFC\u51FA\u70ED\u529B\u56FE"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Export:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Export:'
+      - "\u5BFC\u51FA\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'FILE NAME:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'FILE NAME:'
+      - "\u6587\u4EF6\u540D\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: File
+      TermType: 0
+      Description: 
+      Languages:
+      - File
+      - "\u6587\u4EF6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Fire
+      TermType: 0
+      Description: 
+      Languages:
+      - Fire Sim
+      - "\u706B\u707E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Forces
+      TermType: 0
+      Description: 
+      Languages:
+      - Forces
+      - "\u529B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Free Trial Version
+      TermType: 0
+      Description: 
+      Languages:
+      - Free Trial Version
+      - "\u514D\u8D39\u8BD5\u7528\u7248"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gate
+      TermType: 0
+      Description: 
+      Languages:
+      - Gate
+      - "\u95E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gate Counts
+      TermType: 0
+      Description: 
+      Languages:
+      - Gate Counts
+      - "\u7A7F\u95E8\u4EBA\u6570"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Gate Middle:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Gate Middle:'
+      - "\u95E8\u4E2D\u70B9\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Gate Shares
+      TermType: 0
+      Description: 
+      Languages:
+      - Gate Shares
+      - "\u7A7F\u95E8\u4EBA\u6570"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'General:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'General:'
+      - "\u901A\u7528\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Generate Agents
+      TermType: 0
+      Description: 
+      Languages:
+      - Generate Agents
+      - "\u751F\u6210\u884C\u4EBA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Grid Display
+      TermType: 0
+      Description: 
+      Languages:
+      - Grid Display
+      - "\u7F51\u683C\u663E\u793A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ground Floor
+      TermType: 0
+      Description: 
+      Languages:
+      - Ground Floor
+      - "\u5730\u9762\u5C42"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ground Image
+      TermType: 0
+      Description: 
+      Languages:
+      - Ground Image
+      - "\u5730\u9762\u56FE"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Groups Size
+      TermType: 0
+      Description: 
+      Languages:
+      - Groups Size
+      - "\u7FA4\u7EC4\u5927\u5C0F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Groups:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Groups:'
+      - "\u7FA4\u7EC4\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Half Landing
+      TermType: 0
+      Description: 
+      Languages:
+      - Half Landing
+      - "\u53CC\u8DD1\u697C\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Heatmap
+      TermType: 0
+      Description: 
+      Languages:
+      - Heatmap
+      - "\u70ED\u529B\u56FE"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Heatmap:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Heatmap:'
+      - "\u70ED\u529B\u56FE\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Help
+      TermType: 0
+      Description: 
+      Languages:
+      - Help
+      - "\u5E2E\u52A9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Import...
+      TermType: 0
+      Description: 
+      Languages:
+      - Import...
+      - "\u5BFC\u5165..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Individuals
+      TermType: 0
+      Description: 
+      Languages:
+      - Individuals
+      - "\u5355\u4EBA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Initial
+      TermType: 0
+      Description: 
+      Languages:
+      - Initial
+      - "\u521D\u59CB\u503C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Inside:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Inside:'
+      - "\u4F4D\u7F6E\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Items
+      TermType: 0
+      Description: 
+      Languages:
+      - Items
+      - "\u591A\u65B9\u9762"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Keyboard Controls
+      TermType: 0
+      Description: 
+      Languages:
+      - Keyboard Controls
+      - "\u952E\u76D8\u63A7\u5236"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Language
+      TermType: 0
+      Description: 
+      Languages:
+      - "Language \u6587\u2194A"
+      - "\u8BED\u8A00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: "Language \u6587 A"
+      TermType: 0
+      Description: 
+      Languages:
+      - Language
+      - "\u8BED\u8A00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Legend Maximums
+      TermType: 0
+      Description: 
+      Languages:
+      - Legend Maximums
+      - "\u56FE\u4F8B\u6700\u5927\u503C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Length
+      TermType: 0
+      Description: 
+      Languages:
+      - Length
+      - "\u957F\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Level
+      TermType: 0
+      Description: 
+      Languages:
+      - Level
+      - "\u697C\u5C42"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Licence Details
+      TermType: 0
+      Description: 
+      Languages:
+      - Licence Details
+      - "\u8BB8\u53EF\u8BC1\u8BE6\u60C5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Licenced Copy
+      TermType: 0
+      Description: 
+      Languages:
+      - Licenced Copy
+      - "\u8BB8\u53EF\u526F\u672C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: License Details
+      TermType: 0
+      Description: 
+      Languages:
+      - Licence Details
+      - "\u8BB8\u53EF\u8BC1\u8BE6\u60C5"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Limit
+      TermType: 0
+      Description: 
+      Languages:
+      - Limit
+      - "\u4E0A\u9650"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Load TT
+      TermType: 0
+      Description: 
+      Languages:
+      - Load TT
+      - "\u52A0\u8F7D\u65F6\u95F4\u8868"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Load Table
+      TermType: 0
+      Description: 
+      Languages:
+      - Load Table
+      - "\u52A0\u8F7D\u8868"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Load Timetable
+      TermType: 0
+      Description: 
+      Languages:
+      - Load Timetable
+      - "\u52A0\u8F7D\u65F6\u523B\u8868"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Max Density
+      TermType: 0
+      Description: 
+      Languages:
+      - Max Density
+      - "\u6700\u5927\u5BC6\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Name
+      TermType: 0
+      Description: 
+      Languages:
+      - Name
+      - "\u540D\u79F0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: New Model
+      TermType: 0
+      Description: 
+      Languages:
+      - New Model
+      - "\u65B0\u5EFA\u6A21\u578B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No
+      TermType: 0
+      Description: 
+      Languages:
+      - No
+      - "\u5426"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No Recording
+      TermType: 0
+      Description: 
+      Languages:
+      - No Recording
+      - "\u4E0D\u8BB0\u5F55"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: None
+      TermType: 0
+      Description: 
+      Languages:
+      - None
+      - "\u65E0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Normal Behaviour
+      TermType: 0
+      Description: 
+      Languages:
+      - Normal Behaviour
+      - "\u6B63\u5E38\u884C\u4E3A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Number of Runs
+      TermType: 0
+      Description: 
+      Languages:
+      - Number of Runs
+      - "\u8FD0\u884C\u6B21\u6570"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: OK
+      TermType: 0
+      Description: 
+      Languages:
+      - OK
+      - "\u786E\u5B9A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Open Model
+      TermType: 0
+      Description: 
+      Languages:
+      - Open Model
+      - "\u6253\u5F00\u6A21\u578B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Order:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Order:'
+      - "\u987A\u5E8F\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PeakHour Crowd
+      TermType: 0
+      Description: 
+      Languages:
+      - PeakHour Crowd
+      - PeakHour Crowd
+      Flags: 0000
+      Languages_Touch: []
+    - Term: PeakHour Crowd - Licensing & Activation
+      TermType: 0
+      Description: 
+      Languages:
+      - PeakHour Crowd - Licensing & Activation
+      - "PeakHour Crowd - \u8BB8\u53EF\u4E0E\u6FC0\u6D3B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Platform Queue
+      TermType: 0
+      Description: 
+      Languages:
+      - Platform Queue
+      - "\u7AD9\u53F0\u961F\u5217"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Play/Pause
+      TermType: 0
+      Description: 
+      Languages:
+      - Play/Pause
+      - "\u5F00\u59CB/\u6682\u505C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Playback
+      TermType: 0
+      Description: 
+      Languages:
+      - Playback
+      - "\u56DE\u653E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Please contact info@urbanpeakhour.com if you need assistance.
+      TermType: 0
+      Description: 
+      Languages:
+      - Please contact info@urbanpeakhour.com if you need assistance.
+      - "\u5982\u679C\u60A8\u9700\u8981\u5E2E\u52A9\uFF0C\u8BF7\u8054\u7CFBinfo@urbanpeakhour.com"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Please enter the activation key you received with this product (incl
+        dashes):'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Please enter the activation key you received with this product (incl dashes):'
+      - "\u8BF7\u8F93\u5165\u6FC0\u6D3B\u5BC6\u94A5\uFF08\u5305\u62EC\u7834\u6298\u53F7\uFF09\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Point of Interest
+      TermType: 0
+      Description: 
+      Languages:
+      - Point of Interest
+      - "\u5174\u8DA3\u70B9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Prefabrication
+      TermType: 0
+      Description: 
+      Languages:
+      - Prefabrication
+      - "\u9884\u5236\u7EC4\u4EF6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Prefabrications
+      TermType: 0
+      Description: 
+      Languages:
+      - Prefabrications
+      - "\u9884\u5236\u7EC4\u4EF6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Public Train
+      TermType: 0
+      Description: 
+      Languages:
+      - Public Train
+      - "\u516C\u5171\u5217\u8F66"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Queue Around Corners
+      TermType: 0
+      Description: 
+      Languages:
+      - Queue Around Corners
+      - "\u5141\u8BB8\u5728\u62D0\u89D2\u5904\u6392\u961F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reaction Times
+      TermType: 0
+      Description: 
+      Languages:
+      - Reaction Times
+      - "\u53CD\u5E94\u65F6\u95F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reactions
+      TermType: 0
+      Description: 
+      Languages:
+      - Reactions
+      - "\u53CD\u5E94"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Rectangle
+      TermType: 0
+      Description: 
+      Languages:
+      - Rectangle
+      - "\u77E9\u5F62\u4E2D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reset All
+      TermType: 0
+      Description: 
+      Languages:
+      - Reset All
+      - "\u91CD\u7F6E\u5168\u90E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reset Camera
+      TermType: 0
+      Description: 
+      Languages:
+      - Reset Camera
+      - "\u91CD\u7F6E\u76F8\u673A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Reset Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - Reset Speed
+      - "\u91CD\u7F6E\u901F\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Restart
+      TermType: 0
+      Description: 
+      Languages:
+      - Restart
+      - "\u91CD\u65B0\u5F00\u59CB"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Road
+      TermType: 0
+      Description: 
+      Languages:
+      - Road
+      - "\u8DEF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Room
+      TermType: 0
+      Description: 
+      Languages:
+      - Room
+      - "\u623F\u95F4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Run
+      TermType: 0
+      Description: 
+      Languages:
+      - Run
+      - "\u8FD0\u884C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Run Sim
+      TermType: 0
+      Description: 
+      Languages:
+      - Run Sim
+      - "\u8FD0\u884C\u4EFF\u771F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Save
+      TermType: 0
+      Description: 
+      Languages:
+      - Save
+      - "\u5B58\u50A8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Save As...
+      TermType: 0
+      Description: 
+      Languages:
+      - Save As...
+      - "\u5B58\u50A8\u4E3A..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Save Parameters
+      TermType: 0
+      Description: 
+      Languages:
+      - Save Parameters
+      - "\u4FDD\u5B58\u53C2\u6570"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Screenshots
+      TermType: 0
+      Description: 
+      Languages:
+      - Screenshots
+      - "\u622A\u56FE"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Selected Danger:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Selected Danger:'
+      - "\u9009\u5B9A\u5371\u9669\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Selected Gate
+      TermType: 0
+      Description: 
+      Languages:
+      - Selected Gate
+      - "\u9009\u5B9A\u95E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Selected Item:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Selected Item:'
+      - "\u9009\u5B9A\u9879\u76EE\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Selected Level:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Selected Level:'
+      - "\u9009\u5B9A\u697C\u5C42\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Selected Object:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Selected Object:'
+      - "\u9009\u5B9A\u7269\u4F53\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Selected Wall/Barricade
+      TermType: 0
+      Description: 
+      Languages:
+      - Selected Wall/Barricade
+      - "\u9009\u5B9A\u5899/\u8DEF\u969C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Show Advanced Settings
+      TermType: 0
+      Description: 
+      Languages:
+      - Show Advanced Options
+      - "\u663E\u793A\u5B66\u8005\u8BBE\u7F6E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation
+      - "\u4EFF\u771F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation Playback Paused
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation Playback Paused
+      - "\u4EFF\u771F\u56DE\u653E\u5DF2\u6682\u505C"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation Playing Back
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation Playing Back
+      - "\u4EFF\u771F\u56DE\u653E\u4E2D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation Removed
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation Removed
+      - "\u4EFF\u771F\u5DF2\u5220\u9664"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation Repeating
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation Repeating
+      - "\u4EFF\u771F\u91CD\u590D\u4E2D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Simulation already started! Cancelling current simulation...
+      TermType: 0
+      Description: 
+      Languages:
+      - Simulation already started! Cancelling current simulation...
+      - "\u4EFF\u771F\u5DF2\u5F00\u59CB\uFF01\u53D6\u6D88\u5F53\u524D\u4EFF\u771F..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Single
+      TermType: 0
+      Description: 
+      Languages:
+      - Single
+      - "\u5355\u4EBA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Size:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Size:'
+      - "\u5C3A\u5BF8\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Slope
+      TermType: 0
+      Description: 
+      Languages:
+      - Slope
+      - "\u5761\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Smaller Grid (1cm)
+      TermType: 0
+      Description: 
+      Languages:
+      - Smaller Grid (1cm)
+      - "\u8F83\u5C0F\u7684\u7F51\u683C\uFF081\u5398\u7C73\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Smooth
+      TermType: 0
+      Description: 
+      Languages:
+      - Smooth
+      - "\u5E73\u6ED1"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - "Speed\xB2"
+      - "\u5E73\u65B9\u901F\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Speed
+      TermType: 0
+      Description: 
+      Languages:
+      - "Speed\xB2"
+      - "\u5E73\u65B9\u901F\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stair
+      TermType: 0
+      Description: 
+      Languages:
+      - Stair
+      - "\u697C\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Stairs
+      TermType: 0
+      Description: 
+      Languages:
+      - Stairs
+      - "\u697C\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Start Time (sec)
+      TermType: 0
+      Description: 
+      Languages:
+      - Start Time (sec)
+      - "\u5F00\u59CB\u65F6\u95F4\uFF08\u79D2\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Static
+      TermType: 0
+      Description: 
+      Languages:
+      - Static
+      - "\u9759\u6001"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Straight
+      TermType: 0
+      Description: 
+      Languages:
+      - Straight
+      - "\u76F4\u7EBF\u697C\u68AF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Submit User Report
+      TermType: 0
+      Description: 
+      Languages:
+      - Submit User Report
+      - "\u63D0\u4EA4\u7528\u6237\u62A5\u544A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Switching panic mode to
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Switching panic mode to '
+      - "\u5C06\u7D27\u6025\u6A21\u5F0F\u5207\u6362\u4E3A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: The heatmap hasn't been completely recorded yet. Please wait until the
+        simulation is complete.
+      TermType: 0
+      Description: 
+      Languages:
+      - The heatmap hasn't been completely recorded yet. Please wait until the simulation
+        is complete.
+      - "\u70ED\u529B\u56FE\u5C1A\u672A\u88AB\u5B8C\u5168\u8BB0\u5F55\u3002\u8BF7\u7B49\u5F85\u4EFF\u771F\u5B8C\u6210\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: There were error(s) with validating the model you created, continuing...
+      TermType: 0
+      Description: 
+      Languages:
+      - There were error(s) with validating the model you created, continuing...
+      - "\u9A8C\u8BC1\u60A8\u521B\u5EFA\u7684\u6A21\u578B\u65F6\u51FA\u73B0\u9519\u8BEF\uFF0C\u7EE7\u7EED..."
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ticket Gate
+      TermType: 0
+      Description: 
+      Languages:
+      - Ticket Gate
+      - "\u68C0\u7968\u53E3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Ticket Gate Width
+      TermType: 0
+      Description: 
+      Languages:
+      - Ticket Gate Width
+      - "\u68C0\u7968\u53E3\u5BBD\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Tools
+      TermType: 0
+      Description: 
+      Languages:
+      - Tools
+      - "\u5DE5\u5177"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Top View
+      TermType: 0
+      Description: 
+      Languages:
+      - Top View
+      - "\u4FEF\u89C6\u56FE"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Total
+      TermType: 0
+      Description: 
+      Languages:
+      - Total
+      - "\u603B\u5171"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Transit Timetable
+      TermType: 0
+      Description: 
+      Languages:
+      - Transit Timetable
+      - "\u5217\u8F66\u65F6\u523B\u8868"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Type:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Type:'
+      - "\u7C7B\u522B\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Undo
+      TermType: 0
+      Description: 
+      Languages:
+      - Undo
+      - "\u64A4\u9500"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Uses grid neighbours in calculation. (Highly recommended)
+      TermType: 0
+      Description: 
+      Languages:
+      - Uses grid neighbours in calculation. (Highly recommended)
+      - "\u5728\u8BA1\u7B97\u4E2D\u4F7F\u7528\u90BB\u8FD1\u7F51\u683C\uFF08\u9AD8\u5EA6\u63A8\u8350\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Utilization
+      TermType: 0
+      Description: 
+      Languages:
+      - Utilization
+      - "\u5229\u7528\u7387"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Vertex
+      TermType: 0
+      Description: 
+      Languages:
+      - Vertex
+      - "\u9876\u70B9"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: View
+      TermType: 0
+      Description: 
+      Languages:
+      - View
+      - "\u67E5\u770B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wall
+      TermType: 0
+      Description: 
+      Languages:
+      - Wall
+      - "\u5899"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Wall Snapping
+      TermType: 0
+      Description: 
+      Languages:
+      - Wall Snapping
+      - "\u5899\u6355\u6349"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Warning
+      TermType: 0
+      Description: 
+      Languages:
+      - Warning
+      - "\u8B66\u544A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Weight Modifier
+      TermType: 0
+      Description: 
+      Languages:
+      - Weight Modifier
+      - "\u5F3A\u5EA6\u8C03\u8282\u5668"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: 'Weight:'
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Weight:'
+      - "\u5F3A\u5EA6\uFF1A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Welcome to the trial version. File operations are disabled and agent
+        numbers are limited. If you have a licence, go to Help > Licence Details.
+      TermType: 0
+      Description: 
+      Languages:
+      - Welcome to the trial version. File operations are disabled and agent numbers
+        are limited. If you have a licence, go to Help > Licence Details.
+      - "\u6B22\u8FCE\u4F7F\u7528\u8BD5\u7528\u7248\u3002 \u6587\u4EF6\u64CD\u4F5C\u88AB\u7981\u7528\uFF0C\u5E76\u4E14\u4EBA\u6570\u53D7\u5230\u9650\u5236\u3002
+        \u5982\u679C\u60A8\u6709\u8BB8\u53EF\u8BC1\uFF0C\u8BF7\u8F6C\u5230\u201C\u5E2E\u52A9\u201D>\u201C\u8BB8\u53EF\u8BC1\u8BE6\u7EC6\u4FE1\u606F\u201D"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Width
+      TermType: 0
+      Description: 
+      Languages:
+      - Width
+      - "\u5BBD\u5EA6"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Yes
+      TermType: 0
+      Description: 
+      Languages:
+      - Yes
+      - "\u662F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: You cannot run a simulation without any agent distributions.
+      TermType: 0
+      Description: 
+      Languages:
+      - You cannot run a simulation without any agent distributions.
+      - "\u6CA1\u6709\u884C\u4EBA\u5206\u5E03\uFF0C\u60A8\u65E0\u6CD5\u8FD0\u884C\u4EFF\u771F\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Your free trial version does not support this feature.
+      TermType: 0
+      Description: 
+      Languages:
+      - Your free trial version does not support this feature.
+      - "\u60A8\u7684\u514D\u8D39\u8BD5\u7528\u7248\u4E0D\u652F\u6301\u6B64\u529F\u80FD\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Change Language
+      TermType: 0
+      Description: 
+      Languages:
+      - Change Language
+      - "\u6539\u53D8\u8BED\u8A00"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Remove Color
+      TermType: 0
+      Description: 
+      Languages:
+      - Remove Color
+      - "\u53BB\u9664\u989C\u8272"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Color Picker
+      TermType: 0
+      Description: 
+      Languages:
+      - Color Picker
+      - "\u9009\u8272\u5668"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Follow
+      TermType: 0
+      Description: 
+      Languages:
+      - Follow
+      - "\u8DDF\u968F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Import Type
+      TermType: 0
+      Description: 
+      Languages:
+      - Import Type
+      - "\u5BFC\u5165\u7C7B\u578B"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Group Settings
+      TermType: 0
+      Description: 
+      Languages:
+      - Group Settings
+      - "\u7EC4\u8BBE\u7F6E"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: New Model (in metres)
+      TermType: 0
+      Description: 
+      Languages:
+      - New Model (in metres)
+      - "\u65B0\u578B\u53F7\uFF08\u4EE5\u7C73\u4E3A\u5355\u4F4D\uFF09"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Train Carriages Editor
+      TermType: 0
+      Description: 
+      Languages:
+      - Train Carriages Editor
+      - "\u706B\u8F66\u8FD0\u8F93\u7F16\u8F91"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: No. of Doors
+      TermType: 0
+      Description: 
+      Languages:
+      - No. of Doors
+      - "\u95E8\u6570"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Car Length
+      TermType: 0
+      Description: 
+      Languages:
+      - Car Length
+      - "\u8F66\u957F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Boarding
+      TermType: 0
+      Description: 
+      Languages:
+      - Boarding %
+      - "\u767B\u673A\u767E\u5206\u6BD4"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: doors
+      TermType: 0
+      Description: 
+      Languages:
+      - doors
+      - "\u95E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: m
+      TermType: 0
+      Description: 
+      Languages:
+      - m
+      - "\u7C73"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Auto
+      TermType: 0
+      Description: 
+      Languages:
+      - Auto
+      - "\u81EA\u52A8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Designate Agents to Specific Gates
+      TermType: 0
+      Description: 
+      Languages:
+      - Designate Agents to Specific Gates
+      - "\u6307\u5B9A\u884C\u4EBA\u5230\u7279\u5B9A\u7684\u767B\u673A\u53E3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Destination Gates
+      TermType: 0
+      Description: 
+      Languages:
+      - Destination Gates
+      - "\u76EE\u7684\u5730\u767B\u673A\u53E3"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Intermediate Gates
+      TermType: 0
+      Description: 
+      Languages:
+      - Intermediate Gates
+      - "\u4E2D\u7EA7\u95E8"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Update
+      TermType: 0
+      Description: 
+      Languages:
+      - Update
+      - "\u786E\u5B9A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Delete
+      TermType: 0
+      Description: 
+      Languages:
+      - Delete
+      - "\u5220\u9664"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: QUIT
+      TermType: 0
+      Description: 
+      Languages:
+      - QUIT
+      - "\u9000\u51FA"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Any unsaved changes to your model will be lost. Do you still wish to
+        exit?
+      TermType: 0
+      Description: 
+      Languages:
+      - 'Any unsaved changes to your model will be lost.
+
+
+        Do you still wish
+        to exit?'
+      - "\u5BF9\u6A21\u578B\u7684\u4EFB\u4F55\u672A\u4FDD\u5B58\u7684\u66F4\u6539\u90FD\u5C06\u4E22\u5931\u3002\r\n\r\n\u60A8\u4ECD\u7136\u8981\u9000\u51FA\u5417\uFF1F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: copyright
+      TermType: 0
+      Description: 
+      Languages:
+      - "Copyright \xA9 2022. All Rights Reserved."
+      - "\u7248\u6743\u6240\u6709\xA92022.\u4FDD\u7559\u6240\u6709\u6743\u5229\u3002"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: General
+      TermType: 0
+      Description: 
+      Languages:
+      - General
+      - "\u901A\u7528"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Behaviour
+      TermType: 0
+      Description: 
+      Languages:
+      - Behaviour
+      - "\u884C\u4E3A"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: HIDE
+      TermType: 0
+      Description: 
+      Languages:
+      - HIDE
+      - "\u9690\u85CF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: UNHIDE
+      TermType: 0
+      Description: 
+      Languages:
+      - UNHIDE
+      - "\u53D6\u6D88\u9690\u85CF"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: FInish
+      TermType: 0
+      Description: 
+      Languages:
+      - Finish
+      - "\u7ED3\u675F"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Counter
+      TermType: 0
+      Description: 
+      Languages:
+      - Counter
+      - "\u67DC\u53F0"
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Timetable Settings
+      TermType: 0
+      Description: 
+      Languages:
+      - Timetable Settings
+      - "\u65F6\u95F4\u8868\u8BBE\u7F6E\r"
+      Flags: 0000
+      Languages_Touch: []
+    CaseInsensitiveTerms: 0
+    OnMissingTranslation: 1
+    mTerm_AppName: 
+    mLanguages:
+    - Name: English
+      Code: en
+      Flags: 0
+    - Name: Chinese
+      Code: zh
+      Flags: 0
+    IgnoreDeviceLanguage: 0
+    _AllowUnloadingLanguages: 0
+    Google_WebServiceURL: 
+    Google_SpreadsheetKey: 
+    Google_SpreadsheetName: 
+    Google_LastUpdatedVersion: 
+    Google_Password: change_this
+    GoogleUpdateFrequency: 3
+    GoogleInEditorCheckFrequency: 2
+    GoogleUpdateSynchronization: 1
+    GoogleUpdateDelay: 0
+    Assets: []
+    Spreadsheet_LocalFileName: C:/Users/Liam/Documents/pedestride/Localization.csv
+    Spreadsheet_LocalCSVSeparator: ','
+    Spreadsheet_LocalCSVEncoding: utf-8
+    Spreadsheet_SpecializationAsRows: 1
